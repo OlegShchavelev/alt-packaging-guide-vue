@@ -115,32 +115,237 @@ rpmdevtools-8.10-alt2.noarch
 Если использовать конструкцию с флагом `-v`, то будет выведена дополнительная информация в логах сборки
 :::
 
-::: details Пример Spec-файла
+## Проверка RPM пакета
 
+После создания пакета желательно проверить его качество (качество собранного пакета, а не программного обеспечения). Основным инструментом для этого является статический анализатор
+[`rpmlint`](https://github.com/rpm-software-management/rpmlint).
+
+::: tip
+`rpmlint` имеет очень строгие правила. Иногда некоторые ошибки и предупреждения допустимы.
+:::
+
+Статический анализ RPM улучшает редактируемость, обеспечивает проверку работоспособности и выявление ошибок. Эта утилита может проверять бинарные и исходные RPM (SRPM) файлы, а также Spec-файлы. `rpmlint` будет полезен на всех этапах упаковки.
+
+::: info
+В примерах `rpmlint` запускается без каких-либо опций (упрощённый вывод). Для получения подробных объяснений ошибок и предупреждений можно использовать флаг `-i`.
+:::
+
+::: danger
+Для примера ошибки будут проигнорированы, но для реальных пакетов их необходимо исправлять.
+:::
+
+### Проверка Spec-файла
+
+#### `bello`
+
+```shell
+$ rpmlint bello.spec
 ```
-Name: mypackage
-Version: 1.0
-Release: 1
-Summary: Однострочное описание пакета.
 
-%description
-Общее описание пакета. Примерно 1 абзац.
+::: details Вывод
 
-%prep
-# Подготовка исходных файлов для сборки
-
-%build
-# Компиляция и сборка пакета
-
-%install
-# Установка файлов в директорию сборки
-install -D -m 0644 %{SOURCE1} %{buildroot}/путь/к/файлу/example.txt
-
-%files
-# Перечисление файлов и директорий, которые будут включены в пакет
-%{buildroot}/путь/к/файлу/example.txt
+```shell
+bello.spec: W: invalid-url Source0: https://www.example.com/bello/releases/bello-0.1.tar.gz HTTP Error 404: Not Found
+0 packages and 1 specfiles checked; 0 errors, 1 warnings.
 ```
-
-Представленный Spec-файл достаточно простой. Подобный набор инструкций может быть куда больше, включать больше секций и команд. В некоторых случаях один Spec-файл используется для сборки множества пакетов.
 
 :::
+
+Наблюдения:
+
+- Предупреждение `invalid-url Source0`: URL-адрес, указанный в директиве `Source0`, недоступен. Это ожидаемо, так как указанного URL-адреса не существует.
+
+#### `pello`
+
+```shell
+$ rpmlint pello.spec
+```
+
+::: details Вывод
+
+```shell
+pello.spec:30: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}
+pello.spec:34: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.pyc
+pello.spec:39: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}/
+pello.spec:43: E: hardcoded-library-path in /usr/lib/%{name}/
+pello.spec:45: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.py*
+pello.spec: W: invalid-url Source0: https://www.example.com/pello/releases/pello-0.1.1.tar.gz HTTP Error 404: Not Found
+0 packages and 1 specfiles checked; 5 errors, 1 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Аналогичное предупреждение `invalid-url`.
+- Ошибки `hardcoded-library-path`: требуется использование макроса `%{_libdir}` вместо жесткого указания пути к библиотеке.
+
+::: info
+Ошибок много, так как файл спецификации был намеренно описан так, чтобы показать, о каких ошибках может сообщать `rpmlint`.
+:::
+
+#### `cello`
+
+```shell
+$ rpmlint ~/rpmbuild/SPECS/cello.spec
+```
+
+::: details Вывод
+
+```shell
+/home/admiller/rpmbuild/SPECS/cello.spec: W: invalid-url Source0: https://www.example.com/cello/releases/cello-1.0.tar.gz HTTP Error 404: Not Found
+0 packages and 1 specfiles checked; 0 errors, 1 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Аналогичные предупреждения `invalid-url`.
+
+### Проверка SRPM
+
+#### `bello`
+
+```shell
+$ rpmlint ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+```
+
+::: details Вывод
+
+```shell
+bello.src: W: invalid-url URL: https://www.example.com/bello HTTP Error 404: Not Found
+bello.src: W: invalid-url Source0: https://www.example.com/bello/releases/bello-0.1.tar.gz HTTP Error 404: Not Found
+1 packages and 0 specfiles checked; 0 errors, 2 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Предупреждения `invalid-url URL` и `invalid-url Source0`: URL-адрес, указанный в директивах `URL` и `Source0`, недоступен. Это ожидаемо, так как указанного URL-адреса не существует.
+
+#### `pello`
+
+```shell
+$ rpmlint ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+```
+
+::: details Вывод
+
+```shell
+pello.src: W: invalid-url URL: https://www.example.com/pello HTTP Error 404: Not Found
+pello.src:30: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}
+pello.src:34: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.pyc
+pello.src:39: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}/
+pello.src:43: E: hardcoded-library-path in /usr/lib/%{name}/
+pello.src:45: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.py*
+pello.src: W: invalid-url Source0: https://www.example.com/pello/releases/pello-0.1.1.tar.gz HTTP Error 404: Not Found
+1 packages and 0 specfiles checked; 5 errors, 2 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Аналогичные предупреждения `invalid-url`.
+- Ошибки `hardcoded-library-path`: требуется использование макроса `%{_libdir}` вместо жёсткого указания пути к библиотеке.
+
+#### `cello`
+
+```shell
+$ rpmlint ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+```
+
+::: details Вывод
+
+```shell
+cello.src: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: Not Found
+cello.src: W: invalid-url Source0: https://www.example.com/cello/releases/cello-1.0.tar.gz HTTP Error 404: Not Found
+1 packages and 0 specfiles checked; 0 errors, 2 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Аналогичные предупреждения `invalid-url`.
+
+### Проверка RPM
+
+#### `bello`
+
+Для бинарных RPM-файлов, `rpmlint` проверяет дополнительные параметры, в том числе, документацию и последовательное использование
+
+```shell
+$ rpmlint ~/rpmbuild/RPMS/noarch/bello-0.1-1.el7.noarch.rpm
+```
+
+::: details Вывод
+
+```shell
+bello.noarch: W: invalid-url URL: https://www.example.com/bello HTTP Error 404: Not Found
+bello.noarch: W: no-documentation
+bello.noarch: W: no-manual-page-for-binary bello
+1 packages and 0 specfiles checked; 0 errors, 3 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Предупреждение `invalid-url URL`: URL-адрес, указанный в директиве `URL`, недоступен. Это ожидаемо, так как указанного URL-адреса не существует.
+- Предупреждения `no-documentation` и `no-manual-page-for-binary`: в RPM пакете нет документации или страниц руководства.
+
+#### `pello`
+
+```shell
+$ rpmlint ~/rpmbuild/RPMS/noarch/pello-0.1.1-1.el7.noarch.rpm
+```
+
+::: details Вывод
+
+```shell
+pello.noarch: W: invalid-url URL: https://www.example.com/pello HTTP Error 404: Not Found
+pello.noarch: W: only-non-binary-in-usr-lib
+pello.noarch: W: no-documentation
+pello.noarch: E: non-executable-script /usr/lib/pello/pello.py 0644L /usr/bin/env
+pello.noarch: W: no-manual-page-for-binary pello
+1 packages and 0 specfiles checked; 1 errors, 4 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Аналогичное предупреждение `invalid-url`.
+- Аналогичные предупреждения `no-documentation` и `no-manual-page-for-binary`
+- Предупреждение `only-non-binary-in-usr-lib`: предоставлены только бинарные артефакты `/usr/lib/`. Этот каталог обычно зарезервирован для общих объектных файлов, которые являются бинарными. Следовательно, `rpmlint` ожидает, что по крайней мере один или несколько файлов в `/usr/lib/` будут бинарными.
+
+::: info
+Обычно для обеспечения правильного размещения файлов используются макросы RPM. Ради этого примера мы можем проигнорировать это предупреждение.
+:::
+
+- Ошибка `non-executable-script`: файл `/usr/lib/pello/pello.py` не имеет прав на выполнение. Поскольку этот файл содержит [**шебанг**](<https://ru.wikipedia.org/wiki/Шебанг_(Unix)>), `rpmlint` ожидает, что файл будет исполняемым. Для целей примера, файл будет без разрешений на выполнение.
+
+#### `cello`
+
+```shell
+$ rpmlint ~/rpmbuild/RPMS/x86_64/cello-1.0-1.el7.x86_64.rpm
+```
+
+::: details Вывод
+
+```shell
+cello.x86_64: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: Not Found
+cello.x86_64: W: no-documentation
+cello.x86_64: W: no-manual-page-for-binary cello
+1 packages and 0 specfiles checked; 0 errors, 3 warnings.
+```
+
+:::
+
+Наблюдения:
+
+- Аналогичное предупреждение `invalid-url`.
+- Аналогичные предупреждения `no-documentation` и `no-manual-page-for-binary`
