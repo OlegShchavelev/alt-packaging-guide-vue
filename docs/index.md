@@ -2,7 +2,7 @@
 layout: home
 hero:
   name: "ALT"
-  text: 'Packaging Guide'
+  text: "Packaging Guide"
   tagline: Библиотека знаний о сборке пакетов с помощью инфраструктуры операционных систем семейства «Альт»
   actions:
     - theme: brand
@@ -14,7 +14,6 @@ hero:
     - theme: alt
       text: Примеры
       link: case/example/
-
 features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -39,4 +38,3 @@ sponsors:
           img: ./basealt.png
           url: https://www.basealt.ru
 ---
-
