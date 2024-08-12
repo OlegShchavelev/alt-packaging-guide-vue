@@ -1,8 +1,6 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import './style.css'
-import 'uno.css'
 
 import APWHomeSponsors from './components/APWHomeSponsors.vue'
 import APWHomeTeam from './components/APWHomeTeam.vue'
@@ -19,13 +17,12 @@ import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 import { data as team } from './loaders/gitlogDataLoader.data'
 
+import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 
+import './styles/style.css'
+import './styles/theme.css'
+import 'uno.css'
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
-
-import {
-  NolebaseGitChangelogOptions
-} from '../config/plugins/index'
-
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 
 export default {
@@ -41,5 +38,6 @@ export default {
     app.use(NolebaseEnhancedReadabilitiesPlugin)
     app.component('Contribution', APWPageTeam)
     app.use(NolebaseGitChangelogPlugin, { mapAuthors: team['root'] })
+    enhanceAppWithTabs(app)
   }
 } satisfies Theme

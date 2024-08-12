@@ -6,9 +6,11 @@
     "@nolebase/vitepress-plugin-git-changelog": "^2.4.0",
     "@octokit/core": "^6.1.2",
     "@types/node": "^22.1.0",
+    "markdown-it-task-lists": "^2.1.1",
     "ora": "^8.0.1",
     "ts-node": "^10.9.2",
     "vitepress": "^1.2.3",
+    "vitepress-plugin-tabs": "^0.5.0",
     "yargs": "^17.7.2"
   },
   "scripts": {
