@@ -1,4 +1,10 @@
 {
+	"remarkConfig": {
+		"plugins": [
+			"remark-lint-no-multiple-toplevel-headings",
+			"@ampernic/remark-lint-shiki-code-block-syntax-exist"
+		]
+	},
 	"devDependencies": {
 		"@cspell/dict-ru_ru": "^2.2.1",
 		"@digitak/esrun": "^3.2.26",
@@ -10,7 +16,7 @@
 		"cspell": "^8.14.2",
 		"markdown-it-task-lists": "^2.1.1",
 		"ora": "^8.0.1",
-		"remark": "^15.0.1",
+		"remark-cli": "^12.0.1",
 		"ts-node": "^10.9.2",
 		"vitepress": "^1.2.3",
 		"vitepress-plugin-tabs": "^0.5.0",
@@ -31,6 +37,8 @@
 		"docs:remark": "remark "
 	},
 	"dependencies": {
+		"@ampernic/remark-lint-shiki-code-block-syntax-exist": "^1.0.8-rc1",
+		"remark-lint-no-multiple-toplevel-headings": "^4.0.0",
 		"unocss": "^0.61.9"
 	}
 }
