@@ -1,8 +1,8 @@
 ---
 layout: home
 hero:
-  name: "ALT"
-  text: "Packaging Guide"
+  name: ALT
+  text: Packaging Guide
   tagline: Библиотека знаний о сборке пакетов с помощью инфраструктуры операционных систем семейства «Альт»
   actions:
     - theme: brand

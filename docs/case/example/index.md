@@ -10,7 +10,7 @@
 
 - Файл `.service` - содержит описание, расположение скрипта и интерпретатора, который будет обрабатывать скрипт.
 
-Первым шагом необходимо склонировать репозиторий в рабочую директорию, используя команду `git`:
+Первым шагом необходимо клонировать репозиторий в рабочую директорию, используя команду `git`:
 
 ```shell
 $ git clone https://github.com/danila-Skachedubov/DBusTimer_example.git
@@ -114,11 +114,13 @@ cp script_dbus.timer script_dbus.service %buildroot%_sysconfdir/xdg/systemd/user
 ```
 
 ::: info
-Первая команд создаёт каталог `dbustimer` в окружении `buildroot` по пути `/usr/lib/python3/site-packages`.
 
-Втроая устанавливает файл `script_dbus.py` с правами 755 в каталог `/usr/lib/python3/site-packages/dbustimer/` в окружении `buildroot`
+Первая команда создаёт каталог `dbustimer` в окружении `buildroot` по пути `/usr/lib/python3/site-packages`.
+
+Вторая устанавливает файл `script_dbus.py` с правами 755 в каталог `/usr/lib/python3/site-packages/dbustimer/` в окружении `buildroot`.
 
 Аналогично создаётся каталог `%buildroot%_sysconfdir/xdg/systemd/user/`, в который копируются файлы `.service` и `.timer`
+
 :::
 
 В секции `%files` описано, какие файлы и каталоги с соответствующими атрибутами должны быть скопированы из дерева сборки в rpm-пакет, а затем копироваться в целевую систему при установке этого пакета. Все три файла из пакета будут распакованы по путям, описанным в секции `%install`:
