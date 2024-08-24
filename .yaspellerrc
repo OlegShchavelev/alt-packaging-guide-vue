@@ -1,0 +1,24 @@
+{
+  "format": "plain",
+  "checkYo": true,
+  "fileExtensions": [".md"],
+  "excludeFiles": ["docs/equipment/hardware-compatibility.md", "docs/main/congrats.md"],
+  "lang": "ru,en",
+  "ignoreText": [
+    ["```.+```", "gsm"],
+    ["^  *", "gsm"],
+    ["\\- src:.*$", "gsm"],
+    " ?`.+`",
+    "`.+` ?",
+    "#+ ",
+    "\\- +",
+    "\\*\\*.*\\*\\* ?",
+    " ?\\*\\*.*\\*\\*",
+    "!?\\[.+](.+)",
+    "<!-- ?@include.*-->",
+    "<Badge .*>",
+    "https?:\/\/([^ ]+) ",
+    "{{.*}}",
+    "\\| +"
+  ]
+}

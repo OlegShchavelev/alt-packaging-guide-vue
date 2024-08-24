@@ -76,6 +76,8 @@ $ cd RPM
 $ mkdir BUILD RPMS SOURCES SPECS SRPMS
 ```
 
+:::
+
 ::: danger
 Если была использована утилита `rpmdev-setuptree`, обратите внимание на файл [`~/home/.rpmmacros`](#rpmmacros-warning)
 :::
@@ -182,7 +184,7 @@ tar: .
 
 ::: code-group
 
-```txt[Bash]
+```text[Bash]
 Name: bello
 Version: 0.1.1
 Release: alt1
@@ -198,7 +200,7 @@ Requires: bash
 BuildArch: noarch
 ```
 
-```txt[Python 3]
+```text[Python 3]
 Name: pello
 Version: 0.1.1
 Release: alt1
@@ -214,7 +216,7 @@ Requires: python3
 BuildArch: noarch
 ```
 
-```txt[C++]
+```text[C++]
 Name: cello
 Version: 0.1.1
 Release: alt1
@@ -255,7 +257,7 @@ BuildRequires: make
 
 ::: code-group
 
-```txt[Bash]
+```text[Bash]
 %description
 The long-tail description for our Hello World Example implemented in Bash.
 
@@ -263,7 +265,7 @@ The long-tail description for our Hello World Example implemented in Bash.
 %setup -q
 ```
 
-```txt[Python 3]
+```text[Python 3]
 %description
 The long-tail description for our Hello World Example implemented in Python 3.
 
@@ -277,7 +279,7 @@ grep -R '^#!/usr/bin/\(env[[:space:]]\+\)\?python' . | cut -d: -f1 |
     done
 ```
 
-```txt[C++]
+```text[C++]
 %description
 The long-tail description for our Hello World Example implemented in C++.
 
@@ -310,14 +312,14 @@ The long-tail description for our Hello World Example implemented in C++.
 
 ::: code-group
 
-```txt[Bash]
+```text[Bash]
 %install
 
 mkdir -p %buildroot%_bindir
 install -m 0755 %name %buildroot%_bindir/%name
 ```
 
-```txt[Python 3]
+```text[Python 3]
 %install
 
 mkdir -p %buildroot%_bindir
@@ -333,7 +335,7 @@ chmod 0755 %buildroot%_bindir/%name
 install -m 0644 %name.py %buildroot%_libexecdir/%name/
 ```
 
-```txt[C++]
+```text[C++]
 %build
 %make
 
@@ -359,13 +361,13 @@ install -m 0644 %name.py %buildroot%_libexecdir/%name/
 
 ::: code-group
 
-```txt[Bash, C++]
+```text[Bash, C++]
 %files
 %doc LICENSE
 %_bindir/%name
 ```
 
-```txt[Python]
+```text[Python]
 %files
 %doc LICENSE
 %dir %_libexecdir/%name/
@@ -380,19 +382,19 @@ install -m 0644 %name.py %buildroot%_libexecdir/%name/
 
 ::: code-group
 
-```txt[Bash]
+```text[Bash]
 %changelog
 * Mon  date name <email@adress.com> 0.1-alt1
 - First bello package
 ```
 
-```txt[Python 3]
+```text[Python 3]
 %changelog
 * Date name <email@address.com> 0.1.1-alt1
 - First pello package
 ```
 
-```txt[C++]
+```text[C++]
 %changelog
 * Date Name <mail@address.org> 1.0-alt1
 - First cello package
@@ -404,7 +406,7 @@ install -m 0644 %name.py %buildroot%_libexecdir/%name/
 
 ::: code-group
 
-```txt[Bash]
+```text[Bash]
 Name: bello
 Version: 0.1.1
 Release: alt1
@@ -439,7 +441,7 @@ install -m 0755 %name %buildroot%_bindir/%name
 - First bello package
 ```
 
-```txt[Python 3]
+```text[Python 3]
 Name: pello
 Version: 0.1.1
 Release: alt1
@@ -492,7 +494,7 @@ install -m 0644 %name.py %buildroot%_libexecdir/%name/
 - First pello package
 ```
 
-```txt[C++]
+```text[C++]
 Name: cello
 Version: 0.1.1
 Release: alt1
