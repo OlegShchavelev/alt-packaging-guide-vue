@@ -5,16 +5,20 @@ import { VPHomeSponsors } from 'vitepress/theme'
 
 const { frontmatter } = useData()
 const props = computed(() => frontmatter.value.sponsors ?? {})
-
 </script>
 
 <template>
-  <VPHomeSponsors class="VPHomeSponsors" v-if="props.collections" :actionText="props.donationtext"
-    :actionLink="props.donationlink" :message="props.introtext" :data="props.collections" />
+  <VPHomeSponsors
+    class="VPHomeSponsors"
+    v-if="props.collections"
+    :actionText="props.donationtext"
+    :actionLink="props.donationlink"
+    :message="props.introtext"
+    :data="props.collections"
+  />
 </template>
 
 <style scoped>
-
 .VPHomeSponsors:deep(.message) {
   max-width: 800px;
 }
@@ -23,5 +27,4 @@ const props = computed(() => frontmatter.value.sponsors ?? {})
   max-width: 170px;
   max-height: 120px;
 }
-
 </style>

@@ -31,7 +31,8 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => [h(APWHomeTeam), h(APWHomeSponsors)],
       'nav-bar-content-after': () => h(NolebaseEnhancedReadabilitiesMenu),
-      'nav-screen-content-after': () => h(NolebaseEnhancedReadabilitiesScreenMenu),
+      'nav-screen-content-after': () =>
+        h(NolebaseEnhancedReadabilitiesScreenMenu)
     })
   },
   enhanceApp({ app, router, siteData }) {

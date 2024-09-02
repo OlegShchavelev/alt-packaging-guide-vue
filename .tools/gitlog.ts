@@ -12,9 +12,12 @@ import { cyan, gray, red } from 'colorette'
 const args = yargs(process.argv)
   .options({
     key: { type: 'string', default: '' },
-    repoUrl: { type: 'string', default: 'https://github.com/SokolovValy/alt-packaging-guide-vue' },
+    repoUrl: {
+      type: 'string',
+      default: 'https://github.com/SokolovValy/alt-packaging-guide-vue'
+    },
     debug: { type: 'boolean', default: false },
-    dev: { type: 'boolean', default: false },
+    dev: { type: 'boolean', default: false }
   })
   .parse()
 
@@ -25,8 +28,7 @@ const spiner = ora({ discardStdin: false })
 /*
     Net + Local Mapping
 */
-if (!args.dev){
-
+if (!args.dev) {
   const spiner = ora({ discardStdin: false })
   spiner.start(`${toolname} Читаем данные с гита...\n`)
 
@@ -77,7 +79,9 @@ if (!args.dev){
       )
   }
 
-  for await (const gitter of await contributorsRawBase().then((response) => response)) {
+  for await (const gitter of await contributorsRawBase().then(
+    (response) => response
+  )) {
     const userMore = await userGetMore(gitter.author.login)
       .then((response) => response.data)
       .catch((err) =>
@@ -118,14 +122,16 @@ if (!args.dev){
     contributions.forEach((memberRaw) => {
       if (
         memberRaw.name == userMore.name ||
-        Object.values(memberRaw.links[0])[1] == Object.values(author.links[0])[1] ||
-        (memberRaw.nameAliases && memberRaw.nameAliases.includes(gitter.author.login))
+        Object.values(memberRaw.links[0])[1] ==
+          Object.values(author.links[0])[1] ||
+        (memberRaw.nameAliases &&
+          memberRaw.nameAliases.includes(gitter.author.login))
       ) {
         Object.keys(memberRaw).forEach((key) => {
           key == 'mapByNameAliases'
             ? memberRaw[key].forEach((alias) => {
-              author[key].push(alias)
-            })
+                author[key].push(alias)
+              })
             : (author[key] = memberRaw[key])
         })
       }
