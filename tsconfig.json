@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["DOM", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
@@ -28,7 +25,5 @@
     "**/.vitepress/**/*.vue",
     "**/.vitepress/**/*.data"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

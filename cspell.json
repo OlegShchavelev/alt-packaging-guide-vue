@@ -19,7 +19,12 @@
       "pattern": "/^\\s*<<!--[\\s\\S]*?^\\s*-->>/gs"
     }
   ],
-  "ignoreRegExpList": [["code-block"], ["frontmatter-block"], ["html-comment-block"], ["frontmatter-inter"]],
+  "ignoreRegExpList": [
+    ["code-block"],
+    ["frontmatter-block"],
+    ["html-comment-block"],
+    ["frontmatter-inter"]
+  ],
   "dictionaryDefinitions": [
     {
       "name": "apps & companies",
@@ -67,5 +72,8 @@
     "simple words"
   ],
   "import": ["@cspell/dict-ru_ru/cspell-ext.json"],
-  "ignorePaths": ["docs/equipment/hardware-compatibility.md", "docs/main/congrats.md"]
+  "ignorePaths": [
+    "docs/equipment/hardware-compatibility.md",
+    "docs/main/congrats.md"
+  ]
 }

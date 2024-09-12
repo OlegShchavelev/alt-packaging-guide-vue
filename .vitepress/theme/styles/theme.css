@@ -1,21 +1,20 @@
 /**
  * Component: GitChangeLog
  * -------------------------------------------------------------------------- */
- .bg-\$vp-custom-block-details-bg,
- .bg-vp-custom-block-details-bg {
-   background-color: var(--vp-c-gray-3) !important;
- }
- 
- .vp-nolebase-git-changelog-contributors a {
-   text-decoration: none;
- }
+.bg-\$vp-custom-block-details-bg,
+.bg-vp-custom-block-details-bg {
+  background-color: var(--vp-c-gray-3) !important;
+}
 
- /**
+.vp-nolebase-git-changelog-contributors a {
+  text-decoration: none;
+}
+
+/**
  * task-lists
  * -------------------------------------------------------------------------- */
 
 .vp-doc .contains-task-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  
+  list-style: none;
+  padding-left: 0;
+}

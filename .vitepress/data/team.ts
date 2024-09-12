@@ -16,13 +16,18 @@ const membersSection = {
   description: 'Люди, которые участвуют в улучшении и создании новых статей.'
 }
 
-export { homeSorting, teamSorting, leader, limit, membersSection, developersSection }
-
+export {
+  homeSorting,
+  teamSorting,
+  leader,
+  limit,
+  membersSection,
+  developersSection
+}
 
 /* Информация об участниках */
 
 export const contributions = [
-
   {
     avatar: 'https://github.com/OlegShchavelev.png',
     name: 'Олег Щавелев',
