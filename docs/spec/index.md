@@ -22,8 +22,6 @@ License: GPLv2+
 Group: Development/Other
 Url: http://www.altlinux.org/SampleSpecs/program
 
-Packager: Sample Packager <sample@altlinux.org>
-
 Source: %name-%version.tar
 Patch0: %name-1.0-alt-makefile-fixes.patch
 
